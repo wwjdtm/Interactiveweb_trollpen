@@ -80,6 +80,36 @@
     let prevScrollHeight=0; //모든 섹션의 스크롤합 16420
     let currentScene=0; //현재 스크롤섹션 0,1,2,3
 
+    function calcValues(values, currentYOffset){
+
+
+    }
+
+    function playAnimation(){
+        const objs = sceneInfo[currentScene].objs;
+        const values = sceneInfo[currentScene].values;
+        const currentYOffset = yOffset - prevScrollHeight;
+
+        switch (currentScene){
+            case 0:
+                console.log('0 play');
+                let messageA_opacity_0 = values.messageA_opacity[0];
+                let messageA_opacity_1 = values.messageA_opacity[1];
+                console.log
+                break;
+            case 1:
+                console.log('1 play');
+                break;
+            case 2:
+                console.log('2 play');
+                break;
+            case 3:
+                console.log('3 play');
+                break;
+        }
+
+    }
+
     function scrollLoop(){
         prevScrollHeight=0;
         for(let i=0; i<currentScene; i++){
@@ -101,23 +131,9 @@
        
         
     }
-    function playAnimation(){
-        switch (currentScene){
-            case 0:
-                console.log('0 play');
-                break;
-            case 1:
-                console.log('1 play');
-                break;
-            case 2:
-                console.log('2 play');
-                break;
-            case 3:
-                console.log('3 play');
-                break;
-        }
 
-    }
+    
+    
 
     
     //스크롤위치ㅣ
@@ -131,4 +147,4 @@
     window.addEventListener('load',setLayout);
     window.addEventListener('resize',setLayout);
 
-})();//감싸고,함수바로호출됨
+})();//감싸고,함수바로호출 
