@@ -79,6 +79,7 @@
     let yOffset=0; //window.pageyoffset대신 쓸 변수
     let prevScrollHeight=0; //모든 섹션의 스크롤합 16420
     let currentScene=0; //현재 스크롤섹션 0,1,2,3
+    let enterNewScene = false; //새로운 scene이 시작되는순간 true
 
     function calcValues(values, currentYOffset){
         let rv;
@@ -92,8 +93,8 @@
 
     function playAnimation(){
         const objs = sceneInfo[currentScene].objs;
-        const values = sceneInfo[currentScene].values;
-        const currentYOffset = yOffset - prevScrollHeight;
+        const values = sceneInfo[currentScene].values; 
+        const currentYOffset = yOffset - prevScrollHeight; 
 
         switch (currentScene){
             case 0:
@@ -116,6 +117,7 @@
     }
 
     function scrollLoop(){
+        enterNewScene = false;
         prevScrollHeight=0;
         for(let i=0; i<currentScene; i++){
             prevScrollHeight += sceneInfo[i].scrollHeight;
@@ -123,16 +125,18 @@
 
         }
         if(yOffset > prevScrollHeight + sceneInfo[currentScene].scrollHeight){
+            enterNewScene = true;
             currentScene++;
             document.body.setAttribute('id',`show-scene-${currentScene}`);
         }
         if(yOffset < prevScrollHeight){
+            enterNewScene = true;
             if(currentScene===0) return;
             currentScene --;
             document.body.setAttribute('id',`show-scene-${currentScene}`);
         }
         // console.log(currentScene);
-
+        if (enterNewScene) return;
         playAnimation();
        
         
