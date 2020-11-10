@@ -92,19 +92,19 @@
 
         switch (currentScene){
             case 0:
-                console.log('0 play');
+                // console.log('0 play');
                 let messageA_opacity_0 = values.messageA_opacity[0];
                 let messageA_opacity_1 = values.messageA_opacity[1];
                 console.log
                 break;
             case 1:
-                console.log('1 play');
+                // console.log('1 play');
                 break;
             case 2:
-                console.log('2 play');
+                // console.log('2 play');
                 break;
             case 3:
-                console.log('3 play');
+                // console.log('3 play');
                 break;
         }
 
