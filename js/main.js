@@ -17,7 +17,8 @@
                 messageD: document.querySelector('#scroll-section-0 .main-message.d')
             },
             values:{
-                messageA_opacity: [0,1]
+                messageA_opacity: [0,1, {start:0.1, end : 0.2}], //메세지투명도구간
+                messageB_opacity: [0,1, {start:0.3, end : 0.4}],//메세지투명도구간
             }
 
         
@@ -84,8 +85,30 @@
     function calcValues(values, currentYOffset){
         let rv;
         //현재 스크롤섹션에서 스크롤한비율 구하기
-        let scrollRatio = currentYOffset/sceneInfo[currentScene].scrollHeight;
-        rv = scrollRatio* (values[1]-values[0] + values[0]); //0~1값 
+        const scrollHeight = sceneInfo[currentScene].scrollHeight;
+        const scrollRatio = currentYOffset/scrollHeight;
+         
+        
+
+        if(values.length === 3){
+            //start-end 사이에 에니메이션실행
+            const partScrollStart = values[2].start * scrollHeight;
+            const partScrollEnd = values[2].end * scrollHeight;
+            const partScrollHeight = partScrollEnd - partScrollStart;
+            if(currentYOffset >= partScrollStart && currentYOffset <= partScrollEnd){
+                rv = (currentYOffset - partScrollStart)/partScrollHeight* (values[1]-values[0] + values[0]); //0~1값
+
+            }else if(currentYOffset < partScrollStart){
+                rv = values[0];
+            }else{
+                rv = values[1];
+            }
+            
+
+        }else{
+            rv = scrollRatio* (values[1]-values[0] + values[0]); //0~1값
+
+        }
         return rv;
 
 
@@ -136,7 +159,7 @@
             document.body.setAttribute('id',`show-scene-${currentScene}`);
         }
         // console.log(currentScene);
-        if (enterNewScene) return;
+        if (enterNewScene) return; //신이 바뀌는 순간에 음수값(이상한값)찍히지 않도록함
         playAnimation();
        
         
