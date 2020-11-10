@@ -81,6 +81,11 @@
     let currentScene=0; //현재 스크롤섹션 0,1,2,3
 
     function calcValues(values, currentYOffset){
+        let rv;
+        //현재 스크롤섹션에서 스크롤한비율 구하기
+        let scrollRatio = currentYOffset/sceneInfo[currentScene].scrollHeight;
+        rv = scrollRatio* (values[1]-values[0] + values[0]); //0~1값 
+        return rv;
 
 
     }
@@ -93,9 +98,9 @@
         switch (currentScene){
             case 0:
                 // console.log('0 play');
-                let messageA_opacity_0 = values.messageA_opacity[0];
-                let messageA_opacity_1 = values.messageA_opacity[1];
-                console.log
+                let messageA_opacity_in = calcValues(values.messageA_opacity,currentYOffset);
+                objs.messageA.style.opacity = messageA_opacity_in;
+                console.log(messageA_opacity_in);
                 break;
             case 1:
                 // console.log('1 play');
@@ -114,6 +119,7 @@
         prevScrollHeight=0;
         for(let i=0; i<currentScene; i++){
             prevScrollHeight += sceneInfo[i].scrollHeight;
+
 
         }
         if(yOffset > prevScrollHeight + sceneInfo[currentScene].scrollHeight){
