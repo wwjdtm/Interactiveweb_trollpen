@@ -18,8 +18,12 @@
             },
             values:{
                 messageA_opacity_in: [0,1, {start: 0.1, end : 0.2}], //메세지투명도구간
-                messageB_opacity_in: [0,1, {start: 0.3, end : 0.4}],
+                // messageB_opacity_in: [0,1, {start: 0.3, end : 0.4}],
+                messageA_translateY_in: [20,0, {start: 0.1, end : 0.2}],
+
                 messageA_opacity_out: [1,0, {start: 0.25, end : 0.3}],
+                messageA_translateY_out: [0,-20, {start: 0.25, end : 0.3}],
+
                
             }
 
@@ -97,18 +101,19 @@
             const partScrollStart = values[2].start * scrollHeight;
             const partScrollEnd = values[2].end * scrollHeight;
             const partScrollHeight = partScrollEnd - partScrollStart;
+            
             if(currentYOffset >= partScrollStart && currentYOffset <= partScrollEnd){
-                rv = (currentYOffset - partScrollStart)/partScrollHeight* (values[1]-values[0] + values[0]); //0~1값
+                rv = (currentYOffset - partScrollStart)/partScrollHeight* (values[1]-values[0]) + values[0]; //0~1값
 
             }else if(currentYOffset < partScrollStart){
                 rv = values[0];
-            }else{
+            }else {
                 rv = values[1];
             }
             
 
         }else{
-            rv = scrollRatio* (values[1]-values[0] + values[0]); //0~1값
+            rv = scrollRatio* (values[1]-values[0]) + values[0]; //0~1값
 
         }
         return rv;
@@ -128,14 +133,17 @@
                 // console.log('0 play');
                 const messageA_opacity_in = calcValues(values.messageA_opacity_in,currentYOffset);
                 const messageA_opacity_out = calcValues(values.messageA_opacity_out,currentYOffset);
-                 
+                const messageA_translateY_in = calcValues(values.messageA_translateY_in,currentYOffset);
+                const messageA_translateY_out = calcValues(values.messageA_translateY_out,currentYOffset);
+
+                console.log(messageA_opacity_in);
                 if (scrollRatio <= 0.22) {
                     objs.messageA.style.opacity = messageA_opacity_in;
+                    objs.messageA.style.transform = `translateY(${messageA_translateY_in}%)`;
                 } else {
                     objs.messageA.style.opacity = messageA_opacity_out;
+                    objs.messageA.style.transform = `translateY(${messageA_translateY_out}%)`;
                 }
-
-
 
                 break;
 
