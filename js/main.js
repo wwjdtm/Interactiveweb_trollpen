@@ -17,8 +17,10 @@
                 messageD: document.querySelector('#scroll-section-0 .main-message.d')
             },
             values:{
-                messageA_opacity: [0,1, {start:0.1, end : 0.2}], //메세지투명도구간
-                messageB_opacity: [0,1, {start:0.3, end : 0.4}],//메세지투명도구간
+                messageA_opacity_in: [0,1, {start: 0.1, end : 0.2}], //메세지투명도구간
+                messageB_opacity_in: [0,1, {start: 0.3, end : 0.4}],
+                messageA_opacity_out: [1,0, {start: 0.25, end : 0.3}],
+               
             }
 
         
@@ -118,14 +120,25 @@
         const objs = sceneInfo[currentScene].objs;
         const values = sceneInfo[currentScene].values; 
         const currentYOffset = yOffset - prevScrollHeight; 
+        const scrollHeight = sceneInfo[currentScene].scrollHeight;
+        const scrollRatio = (yOffset - prevScrollHeight) / scrollHeight;
 
         switch (currentScene){
             case 0:
                 // console.log('0 play');
-                let messageA_opacity_in = calcValues(values.messageA_opacity,currentYOffset);
-                objs.messageA.style.opacity = messageA_opacity_in;
-                console.log(messageA_opacity_in);
+                const messageA_opacity_in = calcValues(values.messageA_opacity_in,currentYOffset);
+                const messageA_opacity_out = calcValues(values.messageA_opacity_out,currentYOffset);
+                 
+                if (scrollRatio <= 0.22) {
+                    objs.messageA.style.opacity = messageA_opacity_in;
+                } else {
+                    objs.messageA.style.opacity = messageA_opacity_out;
+                }
+
+
+
                 break;
+
             case 1:
                 // console.log('1 play');
                 break;
