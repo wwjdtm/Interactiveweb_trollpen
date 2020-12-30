@@ -46,6 +46,7 @@ a{
     top: 0;
     left: 0;
     width: 100%;
+    z-index: 10; /*배경앞으로 나오도록*/
 }
 .local-nav{
     position: absolute;
@@ -55,6 +56,7 @@ a{
     height: 52px;
     border-bottom: 1px solid #ddd;
     padding: 0 1rem;
+    z-index: 11;
 }
 
 .local-nav-links a:not(.product-name){
@@ -120,6 +122,11 @@ a{
     display: block;
 }
 
+.sticky-elem-canvas{
+    top:0;
+    background: grey;
+}
+
 .desc-message{
     width: 50%;
     font-weight: bold;
@@ -129,6 +136,15 @@ a{
     height: 100px;
     background: rgb(29, 29, 31);
 }
+#scroll-section-2 .b{
+    top : 10%;
+    left : 40%;
+}
+#scroll-section-2 .c{
+    top : 15%;
+    left : 45%;
+}
+
 .mid-message{
     padding: 0 1rem;
     color: #888;
