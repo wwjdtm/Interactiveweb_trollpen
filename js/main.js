@@ -138,6 +138,9 @@
             }
         }
         document.body.setAttribute('id',`show-scene-${currentScene}`);
+
+        const heightRatio = window.innerHeight / 1080;
+        sceneInfo[0].objs.canvas.style.transform = `scale(${heightRatio})`;
     }
     let yOffset=0; //window.pageyoffset대신 쓸 변수
     let prevScrollHeight=0; //모든 섹션의 스크롤합 16420
@@ -322,4 +325,4 @@
     window.addEventListener('load',setLayout);
     window.addEventListener('resize',setLayout);
 
-})();//감싸고,함수바로호출 
+})();
