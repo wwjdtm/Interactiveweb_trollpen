@@ -68,6 +68,9 @@ a{
     padding-top:50vh; /*브라우저높이의 절만반큼 패딩탑*/
 }
 #scroll-section-0 h1{
+    position: relative;
+    top:-10vh;
+    z-index: 5;
     font-size:4rem;
     text-align: center;
 }
@@ -124,7 +127,15 @@ a{
 
 .sticky-elem-canvas{
     top:0;
-    background: grey;
+    height: 100%;
+    /* background: grey; */
+}
+
+.sticky-elem-canvas canvas{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
 }
 
 .desc-message{

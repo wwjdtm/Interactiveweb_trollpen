@@ -22,6 +22,7 @@
             values: {
                 videoImageCount: 1052, //이미지개수
                 imageSequence : [0,1051],
+                canvas_opacity: [1,0, {start:0.9, end:1 }],
                 messageA_opacity_in: [0, 1, { start: 0.1, end: 0.2 }],
                 messageB_opacity_in: [0, 1, { start: 0.3, end: 0.4 }],
                 messageC_opacity_in: [0, 1, { start: 0.5, end: 0.6 }],
@@ -140,7 +141,7 @@
         document.body.setAttribute('id',`show-scene-${currentScene}`);
 
         const heightRatio = window.innerHeight / 1080;
-        sceneInfo[0].objs.canvas.style.transform = `scale(${heightRatio})`;
+        sceneInfo[0].objs.canvas.style.transform = `translate3d(-50%, -50%, 0) scale(${heightRatio})`;
     }
     let yOffset=0; //window.pageyoffset대신 쓸 변수
     let prevScrollHeight=0; //모든 섹션의 스크롤합 16420
@@ -176,8 +177,6 @@
 
         }
         return rv;
-
-
     }
 
     function playAnimation(){
@@ -195,7 +194,7 @@
                 let sequence = Math.round(calcValues(values.imageSequence, currentYOffset));
                 // console.log(sequence);
                 objs.context.drawImage(objs.videoImages[sequence], 0, 0);
-
+                objs.canvas.style.opacity = calcValues(values.canvas_opacity, currentYOffset);
 
                 if (scrollRatio <= 0.22) {
                     // in
@@ -322,7 +321,10 @@
         scrollLoop();
 
     });
-    window.addEventListener('load',setLayout);
+    window.addEventListener('load',()=>{
+        setLayout();
+        sceneInfo[0].objs.context.drawImage(sceneInfo[0].objs.videoImages[0],0,0);//처음장면 그리고 시작
+    });
     window.addEventListener('resize',setLayout);
 
 })();
