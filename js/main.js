@@ -14,9 +14,14 @@
                 messageA: document.querySelector('#scroll-section-0 .main-message.a'),
                 messageB: document.querySelector('#scroll-section-0 .main-message.b'),
                 messageC: document.querySelector('#scroll-section-0 .main-message.c'),
-                messageD: document.querySelector('#scroll-section-0 .main-message.d')
+                messageD: document.querySelector('#scroll-section-0 .main-message.d'),
+                canvas: document.querySelector('#video-canvas-0'),
+                context: document.querySelector('#video-canvas-0').getContext('2d'),
+                videoImages: []
             },
             values: {
+                videoImageCount: 1052, //이미지개수
+                imageSequence : [0,1051],
                 messageA_opacity_in: [0, 1, { start: 0.1, end: 0.2 }],
                 messageB_opacity_in: [0, 1, { start: 0.3, end: 0.4 }],
                 messageC_opacity_in: [0, 1, { start: 0.5, end: 0.6 }],
@@ -97,6 +102,17 @@
         }
     ];
 
+    function setCanvasImages(){
+        let imgElem;
+        for ( let i =0; i < sceneInfo[0].values.videoImageCount; i++) {
+            imgElem = new Image();
+            imgElem.src = `./video/IMG_${1+i}.JPG`;
+            sceneInfo[0].objs.videoImages.push(imgElem);
+        }
+        // console.log(sceneInfo[0].objs.videoImages);
+    }
+    setCanvasImages();
+
     function setLayout(){
         //각스크롤섹션 높이세팅
         for (let i=0; i< sceneInfo.length; i++){
@@ -172,6 +188,12 @@
         switch (currentScene){
             case 0:
                 // console.log('0 play');
+
+                let sequence = Math.round(calcValues(values.imageSequence, currentYOffset));
+                // console.log(sequence);
+                objs.context.drawImage(objs.videoImages[sequence], 0, 0);
+
+
                 if (scrollRatio <= 0.22) {
                     // in
                     objs.messageA.style.opacity = calcValues(values.messageA_opacity_in, currentYOffset);
